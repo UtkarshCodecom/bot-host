@@ -172,7 +172,7 @@ def handle_private(message: pyrogram.types.messages_and_media.message.Message, c
 			except: thumb = None
 			full_path = file
 			filename = "downloads/" +os.path.basename(full_path)
-			actual_path = os.path.dirname(full_path) + "\ " + os.path.basename(full_path)
+			actual_path = os.path.dirname(full_path) + "/ " + os.path.basename(full_path)
 			aplywatermark(filename, file)
 			new_string = msg.caption.replace("Nishant Jindal", "Books Ka Khzana").replace("Ananth Garg", "Books Ka Khzana")
 			bot.send_document(message.chat.id, actual_path, thumb=thumb, caption=new_string, caption_entities=msg.caption_entities, reply_to_message_id=None, progress=progress, progress_args=[message,"up"])

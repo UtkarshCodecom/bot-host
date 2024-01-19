@@ -11,6 +11,7 @@ import json
 import fitz  # Import PyMuPDF for PDF manipulation
 from PIL import Image, ImageDraw, ImageFont
 import os
+import requests
 with open('config.json', 'r') as f: DATA = json.load(f)
 def getenv(var): return os.environ.get(var) or DATA.get(var, None)
 
@@ -172,7 +173,7 @@ def handle_private(message: pyrogram.types.messages_and_media.message.Message, c
 			except: thumb = None
 			full_path = file
 			filename = "downloads/" +os.path.basename(full_path)
-			actual_path = os.path.dirname(full_path) + "/ " + os.path.basename(full_path)
+			actual_path = os.path.dirname(full_path) + "\ " + os.path.basename(full_path)
 			aplywatermark(filename, file)
 			new_string = msg.caption.replace("Nishant Jindal", "Books Ka Khzana").replace("Ananth Garg", "Books Ka Khzana")
 			bot.send_document(message.chat.id, actual_path, thumb=thumb, caption=new_string, caption_entities=msg.caption_entities, reply_to_message_id=None, progress=progress, progress_args=[message,"up"])
@@ -226,7 +227,7 @@ def aplywatermark(filename, file):
 	        image.height
 	    )
         watermark_free_image = image.crop(crop_box)
-        watermark_free_image.save(f"watermark_free_page_{page_index + 1}.png", quality=85)
+        watermark_free_image.save(f"watermark_free_page_{page_index + 1}.png", quality=20,optimize=True)
         image = Image.open(f"watermark_free_page_{page_index + 1}.png")
         width, height = image.size
         draw = ImageDraw.Draw(image)
@@ -235,11 +236,12 @@ def aplywatermark(filename, file):
         font_file_bytes = base64.b64decode(encoded_font)
         font_file = BytesIO(font_file_bytes)
         font = ImageFont.truetype(font_file, font_size)
+        # _, _, textwidth, textheight = draw.textbbox((0, 0), text=text, font=font)
         margin = 60
         x = 20
-        y = height - 20 - margin
+        y = height - 36 - margin
         draw.text((x, y), text, font=font)
-        image.save(f"watermark_free_page_{page_index + 1}.png", quality=85)
+        image.save(f"watermark_free_page_{page_index + 1}.png", quality=20,optimize=True)
         output_page = output_doc.new_page(width=page.rect.width, height=page.rect.height)
         output_page.insert_image(
 	        filename=f"watermark_free_page_{page_index + 1}.png", rect=page.rect

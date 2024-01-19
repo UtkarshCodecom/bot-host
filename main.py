@@ -235,7 +235,7 @@ def aplywatermark(filename, file):
         font_file_bytes = base64.b64decode(encoded_font)
         font_file = BytesIO(font_file_bytes)
         font = ImageFont.truetype(font_file, font_size)
-        textwidth, textheight = draw.textsize(text, font=font)
+        textwidth, textheight = draw.textlength(text, font=font)
         margin = 60
         x = 20
         y = height - textheight - margin

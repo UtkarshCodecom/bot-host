@@ -11,7 +11,6 @@ import json
 import fitz  # Import PyMuPDF for PDF manipulation
 from PIL import Image, ImageDraw, ImageFont
 import os
-import requests
 with open('config.json', 'r') as f: DATA = json.load(f)
 def getenv(var): return os.environ.get(var) or DATA.get(var, None)
 

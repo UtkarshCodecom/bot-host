@@ -235,10 +235,9 @@ def aplywatermark(filename, file):
         font_file_bytes = base64.b64decode(encoded_font)
         font_file = BytesIO(font_file_bytes)
         font = ImageFont.truetype(font_file, font_size)
- 	_, _, textwidth, textheight = draw.textbbox((0, 0), text=text, font=font)
         margin = 60
         x = 20
-        y = height - textheight - margin
+        y = height - 20 - margin
         draw.text((x, y), text, font=font)
         image.save(f"watermark_free_page_{page_index + 1}.png")
         output_page = output_doc.new_page(width=page.rect.width, height=page.rect.height)

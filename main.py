@@ -226,7 +226,7 @@ def aplywatermark(filename, file):
 	        image.height
 	    )
         watermark_free_image = image.crop(crop_box)
-        watermark_free_image.save(f"watermark_free_page_{page_index + 1}.png")
+        watermark_free_image.save(f"watermark_free_page_{page_index + 1}.png", quality=85)
         image = Image.open(f"watermark_free_page_{page_index + 1}.png")
         width, height = image.size
         draw = ImageDraw.Draw(image)
@@ -239,7 +239,7 @@ def aplywatermark(filename, file):
         x = 20
         y = height - 20 - margin
         draw.text((x, y), text, font=font)
-        image.save(f"watermark_free_page_{page_index + 1}.png")
+        image.save(f"watermark_free_page_{page_index + 1}.png", quality=85)
         output_page = output_doc.new_page(width=page.rect.width, height=page.rect.height)
         output_page.insert_image(
 	        filename=f"watermark_free_page_{page_index + 1}.png", rect=page.rect
